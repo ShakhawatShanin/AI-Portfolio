@@ -21,8 +21,8 @@ if not pinecone_api_key or not euron_api_key:
 
 
 # Streamlit UI
-st.title("Portfolio RAG Chatbot")
-st.write("Ask questions about your portfolio documents!")
+st.title("Shanin Chatbot")
+st.write("Ask questions about me!")
 
 # Initialize session state for RAG components
 if "rag_chain" not in st.session_state:
