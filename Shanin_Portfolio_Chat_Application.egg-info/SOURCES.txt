@@ -1,0 +1,5 @@
+setup.py
+Shanin_Portfolio_Chat_Application.egg-info/PKG-INFO
+Shanin_Portfolio_Chat_Application.egg-info/SOURCES.txt
+Shanin_Portfolio_Chat_Application.egg-info/dependency_links.txt
+Shanin_Portfolio_Chat_Application.egg-info/top_level.txt

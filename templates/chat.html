@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shanin Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="chat-container d-flex justify-content-center align-items-center vh-100">
+    <div class="chat-box shadow-lg">
+        <div class="chat-header d-flex align-items-center p-3">
+            <img src="/static/icon.png" class="chat-avatar me-3">
+            <div>
+                <h5 class="mb-0">Shanin Portfolio</h5>
+                <small class="text-light">Ask me anything about me</small>
+            </div>
+        </div>
+
+        <div id="messageFormeight" class="chat-body p-3">
+            <!-- Messages will appear here -->
+        </div>
+
+        <div class="chat-footer p-3">
+            <form id="messageArea" class="d-flex">
+                <input type="text" id="text" name="msg" class="form-control me-2" placeholder="Type a message..." required>
+                <button type="submit" class="btn btn-accent"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $("#messageArea").on("submit", function(event) {
+        event.preventDefault();
+
+        const date = new Date();
+        const str_time = date.getHours().toString().padStart(2,'0') + ":" + date.getMinutes().toString().padStart(2,'0');
+        const rawText = $("#text").val();
+        $("#text").val("");
+
+        const userHtml = `
+            <div class="message user-message mb-3 d-flex justify-content-end">
+                <div class="msg-text bg-accent text-white p-3 rounded-4">
+                    ${rawText} <span class="time">${str_time}</span>
+                </div>
+            </div>`;
+        $("#messageFormeight").append(userHtml).scrollTop($("#messageFormeight")[0].scrollHeight);
+
+        $.post("/get", { msg: rawText }, function(data) {
+            const botHtml = `
+                <div class="message bot-message mb-3 d-flex justify-content-start">
+                    <div class="msg-text bg-dark-light text-light p-3 rounded-4">
+                        ${data} <span class="time">${str_time}</span>
+                    </div>
+                </div>`;
+            $("#messageFormeight").append(botHtml).scrollTop($("#messageFormeight")[0].scrollHeight);
+        });
+    });
+});
+</script>
+
+</body>
+</html>
