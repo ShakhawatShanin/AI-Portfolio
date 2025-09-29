@@ -5,7 +5,6 @@ pypdf==5.6.1
 python-dotenv==1.1.0
 langchain-pinecone==0.2.8 
 langchain-community==0.3.26
-langchain-huggingface==0.1.0  # Add this line
+langchain-huggingface==0.1.0  
+gunicorn==22.0.0  
 -e .  # for this setup.py file
-
-# jupyter
