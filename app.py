@@ -5,12 +5,18 @@ from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 from src.prompt import *
-from src.euron_chat import EuronChatModel  # your custom model
+from src.euron_chat import EuronChatModel
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env file
+# Load environment variables from .env file (for local dev)
 load_dotenv()
+
+# Verify API keys (optional: remove in full production if confident)
+pinecone_api_key = os.environ.get("PINECONE_API_KEY")
+euron_api_key = os.environ.get("EURON_API_KEY")
+if not pinecone_api_key or not euron_api_key:
+    raise ValueError("Missing required API keys in environment variables.")
 
 app = Flask(__name__)
 
@@ -60,4 +66,5 @@ def chat():
     return str(response["answer"])
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host="0.0.0.0", port=port, debug=False)  # Debug=False for production
